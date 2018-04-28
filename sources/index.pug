@@ -1,0 +1,23 @@
+extends templates/layout/main.pug
+
+include templates/card/card
+
+block title
+    title Тестовое задание | FunBox
+
+block pagecontent
+    section
+        .wrapper
+            h1.page-title Ты сегодня покормил кота?
+            ul.catalogue
+                -var cardArray = []
+                -cardArray.push({tasty: 'с фуа-гра',portion: "<tspan dy='0'>10</tspan> порций",prize: ["мышь в подарок"],weight: '0,5',description: 'Печень утки разварная с артишоком', isDisabled: false})
+                -cardArray.push({tasty: 'с рыбой',portion: "<tspan dy='0'>40</tspan> порций",prize: ["<tspan dy='0'>2</tspan> мыши в подарок"],weight: '2',description: 'Головы щучьи с чесноком да свежайшая сёмгушка', isDisabled: false})
+                -cardArray.push({tasty: 'с курой',portion: "<tspan dy='0'>100</tspan> порций",prize: ["<tspan dy='0'>5</tspan> мышей в подарок", "заказчик доволен"],weight: '5',description: 'Филе из цеплят с трюфелями в бульоне', isDisabled: true})
+
+                for card, index in cardArray
+                    li( class=['catalogue_card', card.isDisabled ? 'catalogue_card--disabled' : ''])
+                        +card(card, index)
+
+    script(src='scripts/libs/jquery-3.2.1.min.js')
+    script(src='scripts/common.js')

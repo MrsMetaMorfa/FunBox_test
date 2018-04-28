@@ -1,0 +1,9 @@
+//подключаем миксины и подключаемы блоки кода, которые нужно часто повторять
+@mixin changeCardColor($color) {
+  .card_background {
+    stroke: $color;
+  }
+  .card_weight circle {
+    fill: $color;
+  }
+}

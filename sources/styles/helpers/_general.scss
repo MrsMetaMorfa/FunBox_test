@@ -1,0 +1,204 @@
+//базовые стили для страниц
+* {
+  box-sizing: border-box;
+  transition: all .2s ease-in-out;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 16px;
+  line-height: 1.2;
+}
+section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $colorBasicDark url("../assets/images/background.png");
+  padding: 20px 0;
+  .wrapper {
+    width: 100%;
+    max-width: 1200px;
+    min-width: 320px;
+    margin: auto;
+  }
+}
+.page-title {
+  color: $colorBasicLight;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 36px;
+  font-weight: 100;
+  text-align: center;
+  margin: 0 0 24px;
+}
+.catalogue {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+}
+.catalogue_card {
+  padding: 0 40px;
+  .card_description {
+    color: $colorBasicLight;
+    font-size: 13px;
+    text-align: center;
+    margin: 15px 0;
+    button {
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      padding: 0;
+      margin-left: 5px;
+      color: $colorPrimary;
+      border-bottom: 1px dashed;
+      cursor: pointer;
+      &:hover {
+        color: $colorPrimaryHover;
+      }
+    }
+    &--select, &--disable {
+      display: none;
+    }
+  }
+}
+.card {
+  &_content {
+    background: $colorBasicLight;
+  }
+  &_background {
+    stroke: $colorPrimary;
+  }
+  text {
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 400;
+    fill: $colorBasicMiddle;
+    &.card_paragraph:first-of-type {
+      font-size: 16px;
+    }
+    &.card_paragraph--wantRemove {
+      opacity: 0;
+      fill: $colorSecondaryHover;
+    }
+    &.card_title {
+      font-size: 48px;
+      font-weight: 700;
+      fill: $colorBasicDark;
+    }
+    &.card_subtitle {
+      font-size: 24px;
+      font-weight: 700;
+      fill: $colorBasicDark;
+    }
+    tspan {
+      font-weight: 700;
+    }
+  }
+  &_weight {
+    circle{
+      fill: $colorPrimary;
+    }
+    text {
+      fill: $colorBasicLight;
+      font-size: 21px;
+      line-height: 30px;
+      font-family: "Trebuchet MS", sans-serif;
+      &:first-of-type {
+        font-size: 42px;
+      }
+    }
+  }
+}
+
+.catalogue_card {
+  .card:hover {
+    cursor: pointer;
+    @include changeCardColor($colorPrimaryHover);
+  }
+  &--selected {
+    @include changeCardColor($colorSecondary);
+    .card_description {
+      &--default {
+        display: none;
+      }
+      &--select {
+        display: block;
+      }
+    }
+    .card:hover {
+      cursor: pointer;
+      @include changeCardColor($colorSecondaryHover);
+      .card_paragraph {
+        &--default {
+          opacity: 0;
+        }
+        &--wantRemove {
+          opacity: 1;
+        }
+      }
+    }
+    &.justSelected:hover {
+      @include changeCardColor($colorSecondary);
+      .card_paragraph {
+        &--default {
+          opacity: 1;
+        }
+        &--wantRemove {
+          opacity: 0;
+        }
+      }
+    }
+  }
+  &--disabled {
+    @include changeCardColor($colorDisable);
+    text.card_paragraph, text.card_title, text.card_subtitle {
+      fill: $colorDisable;
+      opacity: 0.5;
+    }
+    text.card_paragraph--wantRemove {
+      opacity: 0;
+    }
+    image {
+      opacity: 0.5;
+    }
+    .card_description {
+      &--default {
+        display: none;
+      }
+      &--disable {
+        display: block;
+        color: $colorDisableText;
+      }
+    }
+    .card:hover {
+      @include changeCardColor($colorDisable);
+    }
+  }
+}
+@media screen and (max-width: 1024px) {
+  .catalogue {
+    flex-wrap: wrap;
+    &_card {
+      padding: 0 20px 20px;
+    }
+  }
+}@media screen and (max-width: 640px) {
+  .page-title {
+    padding: 0 10px;
+  }
+  .catalogue_card {
+    padding: 0 5px 20px;
+  }
+  .card {
+    transform: scale(0.9);
+  }
+}
+@media screen and (max-width: 360px){
+  .catalogue_card {
+    padding: 0 0 20px;
+  }
+}

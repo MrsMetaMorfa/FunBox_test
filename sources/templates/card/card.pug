@@ -1,0 +1,30 @@
+mixin card(info, index)
+    -var indexCorrect = index++
+    svg.card(width='320px', height='480px')
+        defs.card_clipPath
+            mask(id='cardClip' + indexCorrect )
+                path(d='M 45 0 L 310 0 Q 320 0 320 10 L 320 470 Q 320 480 310 480 L 10 480 Q 0 480 0 470 L 0 45 Z', fill='white', stroke-width='0')
+        defs.card_clipPath-inner
+            mask(id='cardClipInner' + indexCorrect )
+                path(d='M 49 4 L 306 4 Q 316 4 316 14 L 316 466 Q 316 476 306 476 L 14 476 Q 4 476 4 476 L 4 49 Z', fill='white', stroke-width='0')
+        svg.card_content(width='320px', height='480px', mask='url(#cardClip'+indexCorrect+')')
+            path.card_background(x="0", y="0", d='M 47 2 L 308 2 Q 318 2 318 12 L 318 468 Q 318 478 308 478 L 12 478 Q 2 478 2 478 L 2 47 Z', fill='white', stroke-width='4px')
+            image(xlink:href='assets/images/cat.png', width='296px', height='268px', x='4', y='208px', mask='url(#cardClipInner'+indexCorrect+')')
+            text.card_paragraph.card_paragraph--default(x='44px', y='42px') Сказочное заморское лакомство
+            text.card_paragraph.card_paragraph--wantRemove(x='44px', y='42px') Котэ не одобряет?
+            text.card_title(x='44px', y='92px') Нямушка
+            text.card_subtitle(x='44px', y='122px') #{info.tasty}
+            text.card_paragraph(x='44px', y='152px') !{info.portion}
+            for item, index in info.prize
+                -function SetY (i) {var current = 172 + 20*i; return current + 'px';}
+                text.card_paragraph(x='44px', y=SetY(index) ) !{item}
+            svg.card_weight(id='cardWeight' + index, width='80px', height='80px', x='220px', y='380px')
+                circle.weight_background(cx='40px', cy='40px', r='40px')
+                text(x='40px', y='46px', width='80px', text-anchor="middle") #{info.weight}
+                text(x='40px', y='70px', width='80px', text-anchor="middle") кг
+
+    .card_description
+        p.card_description--default Чего сидишь? Порадуй котэ,
+            button(type='button', id='selectCard'+indexCorrect) купи.
+        p.card_description--select #{info.description}
+        p.card_description--disable Печалька, #{info.tasty} закончился
